@@ -1,3 +1,5 @@
+import com.juancoob.kahootchallenge.buildsrc.Libs
+
 plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
@@ -6,6 +8,8 @@ plugins {
 dependencies {
     implementation project(":domain")
     testImplementation project(":testshared")
+
+    implementation Libs.arrowCore
 }
 
 java {
