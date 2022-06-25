@@ -1,6 +1,9 @@
+import com.juancoob.kahootchallenge.buildsrc.Libs
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.kapt'
 }
 
 android {
@@ -29,15 +32,34 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
+    implementation project(':usecases')
+    implementation project(":data")
+    implementation project(":domain")
+    testImplementation project(":testshared")
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation Libs.AndroidX.coreKtx
+    implementation Libs.AndroidX.appCompact
+    implementation Libs.AndroidX.recyclerView
+    implementation Libs.AndroidX.material
+    implementation Libs.AndroidX.constraintLayout
+
+    implementation Libs.AndroidX.Lifecycle.viewModelKtx
+    implementation Libs.AndroidX.Lifecycle.runtimeKtx
+
+    implementation Libs.Kotlin.Coroutines.core
+
+    implementation Libs.GlideBumptech.glide
+    kapt Libs.GlideBumptech.compiler
+
+    testImplementation Libs.junit
+    testImplementation Libs.Kotlin.Coroutines.test
+
+    androidTestImplementation Libs.AndroidX.Testing.Ext.junit
+    androidTestImplementation Libs.AndroidX.Testing.Espresso.contrib
 }
