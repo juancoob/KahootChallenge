@@ -4,6 +4,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.0'
 }
 
 android {
@@ -53,9 +54,16 @@ dependencies {
     implementation Libs.AndroidX.Lifecycle.runtimeKtx
 
     implementation Libs.Kotlin.Coroutines.core
+    implementation Libs.Kotlin.kotlinxSerializationJson
 
     implementation Libs.GlideBumptech.glide
     kapt Libs.GlideBumptech.compiler
+
+    implementation Libs.Retrofit.retrofit2
+    implementation Libs.Retrofit.loggingInterceptor
+    implementation Libs.Retrofit.retrofit2KotlinxSerializationConverter
+
+    implementation Libs.arrowCore
 
     testImplementation Libs.junit
     testImplementation Libs.Kotlin.Coroutines.test

@@ -7,10 +7,13 @@ object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.1"
     const val gradleVersionsBenManesPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
     const val junit = "junit:junit:4.13.2"
+    const val arrowCore = "io.arrow-kt:arrow-core:1.0.1"
 
     object Kotlin {
         private const val version = "1.7.0"
         const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
+        const val kotlinxSerializationJson =
+            "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2"
 
         object Coroutines {
             private const val version = "1.6.3"
@@ -51,4 +54,13 @@ object Libs {
         const val glide = "com.github.bumptech.glide:glide:$version"
         const val compiler = "com.github.bumptech.glide:compiler:$version"
     }
+
+    object Retrofit {
+        const val retrofit2 = "com.squareup.retrofit2:retrofit:2.9.0"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:4.9.3"
+        const val retrofit2KotlinxSerializationConverter =
+            "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    }
+
+
 }
