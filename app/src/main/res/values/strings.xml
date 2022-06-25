@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">KahootChallenge</string>
+
+    <!-- activity main -->
+    <string name="question_image">question image</string>
+    <string name="continue_text">Continue</string>
+    <string name="correct">Correct</string>
+    <string name="wrong">Wrong</string>
 </resources>

@@ -7,4 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- main activity -->
+    <color name="triangle_red">#E21B3C</color>
+    <color name="diamond_blue">#1368CE</color>
+    <color name="circle_orange">#D89E00</color>
+    <color name="square_green">#26890C</color>
+    <color name="shadow_answer_background">#26000000</color>
+    <color name="shadow_answer_text">#59000000</color>
+    <color name="shadow_choice_result_text">#4D000000</color>
+    <color name="correct_answer_background">#66BF39</color>
+    <color name="wrong_answer_background">#FF3355</color>
+    <color name="default_wrong_answer_background">#FF99AA</color>
+    <color name="white_button_background">#F2F2F2</color>
+    <color name="black_grey">#333333</color>
 </resources>
