@@ -35,6 +35,13 @@ object Libs {
             const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
         }
 
+        object Room {
+            private const val version = "2.4.2"
+            const val roomRuntime = "androidx.room:room-runtime:$version"
+            const val roomKtx = "androidx.room:room-ktx:$version"
+            const val roomCompiler = "androidx.room:room-compiler:$version"
+        }
+
         object Testing {
 
             object Ext {
@@ -60,6 +67,16 @@ object Libs {
         const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:4.9.3"
         const val retrofit2KotlinxSerializationConverter =
             "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    }
+
+    object Hilt {
+        private const val version = "2.42"
+        const val hiltAndroid = "com.google.dagger:hilt-android:$version"
+        const val hiltCompiler = "com.google.dagger:hilt-compiler:$version"
+    }
+
+    object Javax {
+        const val javaxInject = "javax.inject:javax.inject:1"
     }
 
 
