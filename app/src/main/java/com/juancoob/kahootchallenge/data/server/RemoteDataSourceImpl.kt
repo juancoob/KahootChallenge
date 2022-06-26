@@ -7,11 +7,12 @@ import com.juancoob.domain.ErrorRetrieved
 import com.juancoob.domain.Question
 import com.juancoob.domain.Quiz
 import com.juancoob.kahootchallenge.data.tryCall
+import javax.inject.Inject
 import com.juancoob.kahootchallenge.data.server.models.Choice as ServerChoice
 import com.juancoob.kahootchallenge.data.server.models.Question as ServerQuestion
 import com.juancoob.kahootchallenge.data.server.models.Quiz as ServerQuiz
 
-class RemoteDataSourceImpl(
+class RemoteDataSourceImpl @Inject constructor(
     private val service: RemoteService
 ) : RemoteDataSource {
     override suspend fun requestQuiz(): Either<ErrorRetrieved, Quiz> = tryCall {
@@ -20,6 +21,7 @@ class RemoteDataSourceImpl(
 }
 
 fun ServerQuiz.toLocalModel() = Quiz(
+    uuid = uuid,
     quizType = quizType,
     title = title,
     description = description,
