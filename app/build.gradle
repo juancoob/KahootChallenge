@@ -63,6 +63,13 @@ dependencies {
     implementation Libs.Retrofit.loggingInterceptor
     implementation Libs.Retrofit.retrofit2KotlinxSerializationConverter
 
+    implementation Libs.Hilt.hiltAndroid
+    kapt Libs.Hilt.hiltCompiler
+
+    implementation Libs.AndroidX.Room.roomRuntime
+    implementation Libs.AndroidX.Room.roomKtx
+    kapt Libs.AndroidX.Room.roomCompiler
+
     implementation Libs.arrowCore
 
     testImplementation Libs.junit
