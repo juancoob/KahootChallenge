@@ -8,6 +8,8 @@ import com.juancoob.domain.Quiz
 import com.juancoob.kahootchallenge.data.database.models.QuestionWithChoices
 import com.juancoob.kahootchallenge.data.database.models.QuizWithQuestions
 import com.juancoob.kahootchallenge.data.tryCall
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import com.juancoob.kahootchallenge.data.database.models.Choice as DbChoice
 import com.juancoob.kahootchallenge.data.database.models.Question as DbQuestion
@@ -36,8 +38,8 @@ class LocalDataSourceImpl @Inject constructor(
         ifRight = { null }
     )
 
-    override suspend fun getQuiz(): Quiz =
-        quizDao.getQuiz().toLocalModel()
+    override fun getQuiz(): Flow<Quiz> =
+        quizDao.getQuiz().map { it.toLocalModel() }
 }
 
 fun Quiz.fromLocalModel(): DbQuiz = DbQuiz(

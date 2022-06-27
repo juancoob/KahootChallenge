@@ -9,6 +9,7 @@ import com.juancoob.kahootchallenge.data.database.models.Choice
 import com.juancoob.kahootchallenge.data.database.models.Question
 import com.juancoob.kahootchallenge.data.database.models.Quiz
 import com.juancoob.kahootchallenge.data.database.models.QuizWithQuestions
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface QuizDao {
@@ -27,5 +28,5 @@ interface QuizDao {
 
     @Transaction
     @Query("SELECT * FROM Quiz")
-    suspend fun getQuiz(): QuizWithQuestions
+    fun getQuiz(): Flow<QuizWithQuestions>
 }
