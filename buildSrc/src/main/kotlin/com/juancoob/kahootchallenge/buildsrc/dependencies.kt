@@ -79,5 +79,9 @@ object Libs {
         const val javaxInject = "javax.inject:javax.inject:1"
     }
 
-
+    object Mockk {
+        private const val version = "1.12.4"
+        const val mockkLib = "io.mockk:mockk:$version"
+        const val mockkAgentJvm = "io.mockk:mockk-agent-jvm:$version"
+    }
 }
