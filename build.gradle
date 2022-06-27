@@ -11,6 +11,7 @@ buildscript {
     dependencies {
         classpath Libs.androidGradlePlugin
         classpath Libs.Kotlin.kotlinGradlePlugin
+        classpath Libs.Hilt.hiltAndroidGradlePlugin
         classpath Libs.gradleVersionsBenManesPlugin
     }
 }
