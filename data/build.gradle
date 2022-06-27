@@ -10,6 +10,15 @@ dependencies {
     testImplementation project(":testshared")
 
     implementation Libs.arrowCore
+
+    implementation Libs.Javax.javaxInject
+
+    implementation Libs.Kotlin.Coroutines.core
+
+    testImplementation Libs.junit
+    testImplementation Libs.Mockk.mockkLib
+    testImplementation Libs.Mockk.mockkAgentJvm
+    testImplementation Libs.Kotlin.Coroutines.test
 }
 
 java {
