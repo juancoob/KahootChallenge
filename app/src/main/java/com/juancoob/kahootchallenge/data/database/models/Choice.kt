@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Choice(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: Int? = null,
+    val choiceId: Int,
     val questionId: Int,
     val answer: String,
     val correct: Boolean,
