@@ -55,13 +55,12 @@ fun Question.fromLocalModel(quizId: String, questionId: Int) = DbQuestion(
     type = type,
     image = image,
     question = question,
-    hasPoints = hasPoints,
     pointsMultiplier = pointsMultiplier,
     time = time
 )
 
 fun Choice.fromLocalModel(questionId: Int, choiceId: Int) = DbChoice(
-    id = choiceId,
+    choiceId = choiceId,
     questionId = questionId,
     answer = text,
     correct = isCorrect
@@ -83,7 +82,6 @@ fun QuestionWithChoices.toLocalModel() = question.run {
         image = image,
         question = question,
         choices = choices.map { it.toLocalModel() },
-        hasPoints = hasPoints,
         pointsMultiplier = pointsMultiplier,
         time = time
     )

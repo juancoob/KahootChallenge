@@ -33,7 +33,6 @@ fun ServerQuestion.toLocalModel() = Question(
     image = image,
     question = question,
     choices = choices.map { it.toLocalModel() },
-    hasPoints = hasPoints,
     pointsMultiplier = pointsMultiplier,
     time = time
 )
