@@ -2,8 +2,22 @@
     <string name="app_name">KahootChallenge</string>
 
     <!-- activity main -->
+    <string name="welcome_sentence">Welcome to my game! Do you want to play it?</string>
+    <string name="yeah">Yeah!</string>
+    <string name="question_number">%1$d/%2$d</string>
     <string name="question_image">question image</string>
     <string name="continue_text">Continue</string>
     <string name="correct">Correct</string>
     <string name="wrong">Wrong</string>
+    <string name="times_up">Times up</string>
+    <string name="try_again">Try again?</string>
+    <string name="few_points">You have earned %1$d points.\n And you can do it better!</string>
+    <string name="some_points">Cool! You have earned %1$d points.\n Congratulations!</string>
+    <string name="many_points">Wow! you have earned %1$d points.\n You rocks!</string>
+    <string name="play_again">Play again?</string>
+
+    <!-- error codes -->
+    <string name="connectivity_error">Connectivity Error</string>
+    <string name="server_error">Server Error: </string>
+    <string name="unknown_error">Unknown Error: </string>
 </resources>
