@@ -30,8 +30,6 @@ The presentation pattern used is **MVVM** to survive configuration changes.
 - I have added the Gradle plugin library from Ben Manes because it is a well-known library to update dependencies used in different modules.
 
 ## TO-DO 👨‍🔧
-- Change CountDownTimer with Kotlin Timer to test the MainViewModel without Android dependencies.
-- Make public "requestData" and "retrieveQuestion" methods to test them with method references.
 - Finish MainViewModel.
 - Add integration and UI tests to check the code quality.
 - Mock the web server in the UI test to mock the server response.

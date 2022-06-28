@@ -1,6 +1,5 @@
 package com.juancoob.kahootchallenge.ui
 
-import android.os.CountDownTimer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.juancoob.domain.Choice
@@ -11,12 +10,16 @@ import com.juancoob.kahootchallenge.data.toErrorRetrieved
 import com.juancoob.usecases.GetQuizUseCase
 import com.juancoob.usecases.RequestQuizUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.Timer
 import javax.inject.Inject
+import kotlin.concurrent.fixedRateTimer
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -30,14 +33,15 @@ class MainViewModel @Inject constructor(
     private var quiz: Quiz? = null
     private var questionIndex: Int = 0
     private var currentQuestion: Question? = null
-    private var countDownTimerToUpdateTimeProgress: CountDownTimer? = null
-    private var countDownTimerToGoToNextQuestion: CountDownTimer? = null
+    private var jobToUpdateTimeProgress: Job? = null
+    private var countDownTimerToUpdateTimeProgress: Timer? = null
+    private var jobToGoToNextQuestion: Job? = null
 
     init {
         requestData()
     }
 
-    private fun requestData() {
+    fun requestData() {
         _state.value = UiState(loading = true)
         viewModelScope.launch {
             val errorRetrieved = requestQuizUseCase()
@@ -74,7 +78,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun retrieveQuestion() {
-        stopCountDownTimerToGoToNextQuestion()
+        stopJobToGoToNextQuestion()
 
         if (questionIndex < quiz!!.questions.size) {
             currentQuestion = quiz!!.questions[questionIndex]
@@ -102,56 +106,51 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun stopCountDownTimerToGoToNextQuestion() {
-        countDownTimerToGoToNextQuestion?.cancel()
-    }
-
-    private fun stopCountDownTimerToUpdateTimeProgress() {
-        countDownTimerToUpdateTimeProgress?.cancel()
+    private fun stopJobToGoToNextQuestion() {
+        jobToGoToNextQuestion?.cancel()
     }
 
     private fun startCountDownTimerToUpdateTimeProgress(timeInMillis: Long) {
-        countDownTimerToUpdateTimeProgress = object : CountDownTimer(timeInMillis, ONE_SECOND_IN_MILLIS) {
-            override fun onTick(millisUntilFinished: Long) {
+        jobToUpdateTimeProgress = viewModelScope.launch {
+            var counter = 1
+            var millisUntilFinished: Long = timeInMillis
+            countDownTimerToUpdateTimeProgress = fixedRateTimer(period = ONE_SECOND_IN_MILLIS) {
                 _state.update {
                     _state.value.copy(
                         timeProgressPercentage = (millisUntilFinished * ONE_HUNDRED_PERCENT / timeInMillis).toInt()
                     )
                 }
+                millisUntilFinished = timeInMillis - ONE_SECOND_IN_MILLIS * counter
+                counter++
             }
-
-            override fun onFinish() {
-                _state.update {
-                    _state.value.copy(
-                        isCorrectChoice = false,
-                        choiceUiStateList = it.choiceUiStateList!!.map { choiceUiState ->
-                            choiceUiState.copy(
-                                choice = choiceUiState.choice.copy(
-                                    showAnswer = true
-                                )
+            delay(timeInMillis)
+            stopTimerToUpdateTimeProgress()
+            _state.update {
+                _state.value.copy(
+                    isCorrectChoice = false,
+                    choiceUiStateList = it.choiceUiStateList!!.map { choiceUiState ->
+                        choiceUiState.copy(
+                            choice = choiceUiState.choice.copy(
+                                showAnswer = true
                             )
-                        },
-                        timeProgressPercentage = 0
-                    )
-                }
-                startCountDownTimerToGoToNextQuestion()
+                        )
+                    },
+                    timeProgressPercentage = 0
+                )
             }
+            startCountDownTimerToGoToNextQuestion()
         }
-        countDownTimerToUpdateTimeProgress!!.start()
+    }
+
+    private fun stopTimerToUpdateTimeProgress() {
+        countDownTimerToUpdateTimeProgress?.cancel()
     }
 
     private fun startCountDownTimerToGoToNextQuestion() {
-        countDownTimerToGoToNextQuestion = object :
-            CountDownTimer(DEFAULT_TIME_IN_MILLIS_TO_GO_TO_NEXT_QUESTION, ONE_SECOND_IN_MILLIS) {
-            override fun onTick(millisUntilFinished: Long) {
-                // Empty
-            }
-
-            override fun onFinish() {
-                retrieveQuestion()
-            }
+        jobToGoToNextQuestion = viewModelScope.launch {
+            delay(DEFAULT_TIME_IN_MILLIS_TO_GO_TO_NEXT_QUESTION)
+            retrieveQuestion()
         }
-        countDownTimerToGoToNextQuestion!!.start()
     }
 
     fun Choice.toChoiceUiState() = ChoiceUiState(
@@ -175,10 +174,15 @@ class MainViewModel @Inject constructor(
                     }
                 )
             }
-            stopCountDownTimerToUpdateTimeProgress()
+            stopTimerToUpdateTimeProgress()
+            stopJobToUpdateTimeProgress()
             startCountDownTimerToGoToNextQuestion()
         }
     )
+
+    private fun stopJobToUpdateTimeProgress() {
+        jobToUpdateTimeProgress?.cancel()
+    }
 
     data class UiState(
         val loading: Boolean = false,
