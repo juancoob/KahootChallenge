@@ -21,3 +21,7 @@ fun View.loadBackground(@DrawableRes drawableId: Int) {
 fun ImageView.loadDrawable(@DrawableRes drawableId: Int) {
     Glide.with(context).load(drawableId).into(this)
 }
+
+fun ImageView.loadUrl(url: String) {
+    Glide.with(context).load(url).into(this)
+}
