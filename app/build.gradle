@@ -77,6 +77,10 @@ dependencies {
 
     testImplementation Libs.junit
     testImplementation Libs.Kotlin.Coroutines.test
+    testImplementation Libs.Mockk.mockkLib
+    testImplementation Libs.Mockk.mockkAgentJvm
+    testImplementation Libs.Kotlin.Coroutines.test
+    testImplementation Libs.turbine
 
     androidTestImplementation Libs.AndroidX.Testing.Ext.junit
     androidTestImplementation Libs.AndroidX.Testing.Espresso.contrib

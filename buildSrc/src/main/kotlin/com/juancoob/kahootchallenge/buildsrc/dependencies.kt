@@ -8,6 +8,7 @@ object Libs {
     const val gradleVersionsBenManesPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
     const val junit = "junit:junit:4.13.2"
     const val arrowCore = "io.arrow-kt:arrow-core:1.0.1"
+    const val turbine = "app.cash.turbine:turbine:0.8.0"
 
     object Kotlin {
         private const val version = "1.7.0"
