@@ -73,7 +73,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun retrieveQuestion() {
+    fun retrieveQuestion() {
         stopCountDownTimerToGoToNextQuestion()
 
         if (questionIndex < quiz!!.questions.size) {
