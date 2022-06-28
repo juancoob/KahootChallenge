@@ -13,7 +13,7 @@ suspend fun <T> tryCall(action: suspend () -> T): Either<ErrorRetrieved, T> = tr
     exception.toErrorRetrieved().left()
 }
 
-fun Exception.toErrorRetrieved(): ErrorRetrieved = when (this) {
+fun Throwable.toErrorRetrieved(): ErrorRetrieved = when (this) {
     is IOException -> ErrorRetrieved.Connectivity
     is HttpException -> ErrorRetrieved.Server(code())
     else -> ErrorRetrieved.Unknown(message ?: "")
