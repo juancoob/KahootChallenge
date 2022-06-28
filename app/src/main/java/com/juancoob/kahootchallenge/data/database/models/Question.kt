@@ -10,7 +10,6 @@ data class Question(
     val type: String,
     val image: String,
     val question: String,
-    val hasPoints: Boolean,
     val pointsMultiplier: Int,
-    val time: Int
+    val time: Long
 )
