@@ -29,6 +29,11 @@ object Libs {
         const val material = "com.google.android.material:material:1.6.1"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 
+        object Activity {
+            private const val version = "1.4.0"
+            const val ktx = "androidx.activity:activity-ktx:$version"
+        }
+
         object Lifecycle {
             private const val version = "2.4.1"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
