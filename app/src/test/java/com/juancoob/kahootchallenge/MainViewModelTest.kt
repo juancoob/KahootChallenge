@@ -1,6 +1,7 @@
 package com.juancoob.kahootchallenge
 
 import app.cash.turbine.test
+import com.juancoob.domain.ErrorRetrieved
 import com.juancoob.kahootchallenge.testRules.CoroutineTestRule
 import com.juancoob.kahootchallenge.ui.MainViewModel
 import com.juancoob.testshared.mockedQuiz
@@ -55,4 +56,19 @@ class MainViewModelTest {
         }
     }
 
+    @Test
+    fun `When the ViewModel can not retrieve a quiz, it shows an error`() = runTest {
+        mainViewModel.state.test {
+            coEvery { requestQuizUseCase() }.returns(ErrorRetrieved.Connectivity)
+            assertEquals(MainViewModel.UiState(loading = true), awaitItem())
+            assertEquals(
+                MainViewModel.UiState(
+                    loading = false,
+                    errorRetrieved = ErrorRetrieved.Connectivity,
+                    onRetry = mainViewModel::requestData
+                ), awaitItem()
+            )
+            cancel()
+        }
+    }
 }
