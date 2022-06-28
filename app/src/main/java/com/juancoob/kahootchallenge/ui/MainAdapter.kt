@@ -1,4 +1,4 @@
-package com.juancoob.kahootchallenge.main
+package com.juancoob.kahootchallenge.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,6 +13,7 @@ import com.juancoob.kahootchallenge.R
 import com.juancoob.kahootchallenge.common.loadBackground
 import com.juancoob.kahootchallenge.common.loadDrawable
 import com.juancoob.kahootchallenge.databinding.QuizItemBinding
+import com.juancoob.kahootchallenge.ui.MainViewModel.ChoiceUiState
 
 class MainAdapter : ListAdapter<ChoiceUiState, MainAdapter.ViewHolder>(object :
     DiffUtil.ItemCallback<ChoiceUiState>() {
@@ -76,11 +77,11 @@ class MainAdapter : ListAdapter<ChoiceUiState, MainAdapter.ViewHolder>(object :
                     }
                     polygonImage.loadDrawable(polygonDrawableId)
                 }
-                choiceUiState.choice.showAnswer && choiceUiStatePosition % 2 != 0 -> {
-                    showChoiceTypes(choiceUiState, choice, rightChoiceType)
-                }
                 choiceUiState.choice.showAnswer && choiceUiStatePosition % 2 == 0 -> {
                     showChoiceTypes(choiceUiState, choice, leftChoiceType)
+                }
+                choiceUiState.choice.showAnswer && choiceUiStatePosition % 2 != 0 -> {
+                    showChoiceTypes(choiceUiState, choice, rightChoiceType)
                 }
             }
             setUIVisibility(choiceUiState.choice.showAnswer, choiceUiStatePosition)
