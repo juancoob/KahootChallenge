@@ -20,7 +20,6 @@ val mockedQuestion: Question
         image = "https://media.kahoot.it/8d195530-548a-423e-8604-47f0cabd96e6_opt",
         question = "<b>True or false: </b>The list of seven wonders is based on ancient Greek guidebooks for tourists.",
         choices = listOf(mockedChoice),
-        hasPoints = true,
         pointsMultiplier = 1,
         time = 20000
     )
