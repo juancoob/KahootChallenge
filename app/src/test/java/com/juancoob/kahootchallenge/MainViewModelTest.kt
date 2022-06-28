@@ -40,7 +40,7 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `When the ViewModel request a quiz, it retrieves it`() = runTest {
+    fun `When the ViewModel request a quiz, the app retrieves it`() = runTest {
         mainViewModel.state.test {
             coEvery { requestQuizUseCase() }.returns(null)
             coEvery { getQuizUseCase() }.returns(flowOf(mockedQuiz))
