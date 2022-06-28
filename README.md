@@ -34,3 +34,4 @@ The presentation pattern used is **MVVM** to survive configuration changes.
 - Add integration and UI tests to check the code quality.
 - Mock the web server in the UI test to mock the server response.
 - Create a custom progress bar view to show how much time the user has. Currently, the project uses a LinearProgressIndicator.
+- Add MainState to separate the UI state with the ui rendering
