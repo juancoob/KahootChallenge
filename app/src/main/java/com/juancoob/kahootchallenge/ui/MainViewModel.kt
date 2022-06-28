@@ -93,7 +93,7 @@ class MainViewModel @Inject constructor(
                 )
             }
             questionIndex += 1
-            startCountDownTimerToUpdateTimeProgress(currentQuestion!!.time)
+            startTimerToUpdateTimeProgress(currentQuestion!!.time)
         } else {
             _state.update {
                 _state.value.copy(
@@ -110,7 +110,7 @@ class MainViewModel @Inject constructor(
         jobToGoToNextQuestion?.cancel()
     }
 
-    private fun startCountDownTimerToUpdateTimeProgress(timeInMillis: Long) {
+    private fun startTimerToUpdateTimeProgress(timeInMillis: Long) {
         jobToUpdateTimeProgress = viewModelScope.launch {
             var counter = 1
             var millisUntilFinished: Long = timeInMillis
@@ -125,20 +125,7 @@ class MainViewModel @Inject constructor(
             }
             delay(timeInMillis)
             stopTimerToUpdateTimeProgress()
-            _state.update {
-                _state.value.copy(
-                    isCorrectChoice = false,
-                    choiceUiStateList = it.choiceUiStateList!!.map { choiceUiState ->
-                        choiceUiState.copy(
-                            choice = choiceUiState.choice.copy(
-                                showAnswer = true
-                            )
-                        )
-                    },
-                    timeProgressPercentage = 0
-                )
-            }
-            startCountDownTimerToGoToNextQuestion()
+            updateTimesUpState()
         }
     }
 
@@ -146,7 +133,24 @@ class MainViewModel @Inject constructor(
         countDownTimerToUpdateTimeProgress?.cancel()
     }
 
-    private fun startCountDownTimerToGoToNextQuestion() {
+    private fun updateTimesUpState() {
+        _state.update {
+            _state.value.copy(
+                isCorrectChoice = false,
+                choiceUiStateList = it.choiceUiStateList!!.map { choiceUiState ->
+                    choiceUiState.copy(
+                        choice = choiceUiState.choice.copy(
+                            showAnswer = true
+                        )
+                    )
+                },
+                timeProgressPercentage = 0
+            )
+        }
+        startDelayToGoToNextQuestion()
+    }
+
+    private fun startDelayToGoToNextQuestion() {
         jobToGoToNextQuestion = viewModelScope.launch {
             delay(DEFAULT_TIME_IN_MILLIS_TO_GO_TO_NEXT_QUESTION)
             retrieveQuestion()
@@ -176,7 +180,7 @@ class MainViewModel @Inject constructor(
             }
             stopTimerToUpdateTimeProgress()
             stopJobToUpdateTimeProgress()
-            startCountDownTimerToGoToNextQuestion()
+            startDelayToGoToNextQuestion()
         }
     )
 
