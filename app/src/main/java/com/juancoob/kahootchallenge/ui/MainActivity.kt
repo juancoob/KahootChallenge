@@ -224,6 +224,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val THREE_LEVELS = 3
+        private const val THREE_LEVELS = 3
     }
 }

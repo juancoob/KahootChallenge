@@ -208,8 +208,8 @@ class MainViewModel @Inject constructor(
     )
 
     companion object {
-        const val ONE_SECOND_IN_MILLIS = 1000L
-        const val DEFAULT_TIME_IN_MILLIS_TO_GO_TO_NEXT_QUESTION = 10000L
-        const val ONE_HUNDRED_PERCENT = 100
+        private const val ONE_SECOND_IN_MILLIS = 1000L
+        private const val DEFAULT_TIME_IN_MILLIS_TO_GO_TO_NEXT_QUESTION = 10000L
+        private const val ONE_HUNDRED_PERCENT = 100
     }
 }
