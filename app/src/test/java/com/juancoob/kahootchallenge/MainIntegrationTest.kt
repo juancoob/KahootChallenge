@@ -8,6 +8,7 @@ import com.juancoob.kahootchallenge.data.server.RemoteDataSourceImpl
 import com.juancoob.kahootchallenge.fakes.FakeQuizDao
 import com.juancoob.kahootchallenge.fakes.FakeRemoteService
 import com.juancoob.kahootchallenge.testRules.CoroutineTestRule
+import com.juancoob.kahootchallenge.ui.ChoiceUiStateMapper
 import com.juancoob.kahootchallenge.ui.MainViewModel
 import com.juancoob.testshared.mockedQuestion
 import com.juancoob.testshared.mockedQuiz
@@ -31,7 +32,7 @@ class MainIntegrationTest {
         val quizRepository = QuizRepository(remoteDataSource, localDataSource)
         val requestQuizUseCase = RequestQuizUseCase(quizRepository)
         val getQuizUseCase = GetQuizUseCase(quizRepository)
-        return MainViewModel(requestQuizUseCase, getQuizUseCase)
+        return MainViewModel(requestQuizUseCase, getQuizUseCase, ChoiceUiStateMapper())
     }
 
     @Test
