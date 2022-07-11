@@ -24,7 +24,8 @@ import kotlin.concurrent.fixedRateTimer
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val requestQuizUseCase: RequestQuizUseCase,
-    private val getQuizUseCase: GetQuizUseCase
+    private val getQuizUseCase: GetQuizUseCase,
+    private val choiceUiStateMapper: ChoiceUiStateMapper
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(UiState())
@@ -87,7 +88,11 @@ class MainViewModel @Inject constructor(
                     isCorrectChoice = null,
                     question = currentQuestion,
                     questionNumber = questionIndex + 1,
-                    choiceUiStateList = currentQuestion!!.choices.map { it.toChoiceUiState() },
+                    choiceUiStateList = currentQuestion!!.choices.map { choice ->
+                        with(choiceUiStateMapper) {
+                            choice.toChoiceUiState { onClickChoice(choice) }
+                        }
+                    },
                     timeProgressPercentage = ONE_HUNDRED_PERCENT,
                     points = if (questionIndex == 0) 0 else uiState.points,
                 )
@@ -108,6 +113,30 @@ class MainViewModel @Inject constructor(
 
     private fun stopJobToGoToNextQuestion() {
         jobToGoToNextQuestion?.cancel()
+    }
+
+    private fun onClickChoice(choice: Choice) = with(choice) {
+        _state.update {
+            _state.value.copy(
+                isCorrectChoice = isCorrect,
+                choiceUiStateList = it.choiceUiStateList!!.map { choiceUiState ->
+                    choiceUiState.copy(
+                        choice = choiceUiState.choice.copy(
+                            isSelected = choiceUiState.choice.text == text,
+                            showAnswer = true
+                        )
+                    )
+                },
+                points = if (isCorrect) {
+                    it.points?.plus(it.question!!.pointsMultiplier)
+                } else {
+                    it.points
+                }
+            )
+        }
+        stopTimerToUpdateTimeProgress()
+        stopJobToUpdateTimeProgress()
+        startDelayToGoToNextQuestion()
     }
 
     private fun startTimerToUpdateTimeProgress(timeInMillis: Long) {
@@ -156,33 +185,6 @@ class MainViewModel @Inject constructor(
             retrieveQuestion()
         }
     }
-
-    fun Choice.toChoiceUiState() = ChoiceUiState(
-        choice = this,
-        onClickChoice = {
-            _state.update {
-                _state.value.copy(
-                    isCorrectChoice = isCorrect,
-                    choiceUiStateList = it.choiceUiStateList!!.map { choiceUiState ->
-                        choiceUiState.copy(
-                            choice = choiceUiState.choice.copy(
-                                isSelected = choiceUiState.choice.text == text,
-                                showAnswer = true
-                            )
-                        )
-                    },
-                    points = if (isCorrect) {
-                        it.points?.plus(it.question!!.pointsMultiplier)
-                    } else {
-                        it.points
-                    }
-                )
-            }
-            stopTimerToUpdateTimeProgress()
-            stopJobToUpdateTimeProgress()
-            startDelayToGoToNextQuestion()
-        }
-    )
 
     private fun stopJobToUpdateTimeProgress() {
         jobToUpdateTimeProgress?.cancel()
