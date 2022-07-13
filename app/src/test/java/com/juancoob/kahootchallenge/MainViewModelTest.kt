@@ -8,6 +8,7 @@ import com.juancoob.kahootchallenge.ui.MainViewModel
 import com.juancoob.testshared.mockedChoice
 import com.juancoob.testshared.mockedQuestion
 import com.juancoob.testshared.mockedQuiz
+import com.juancoob.usecases.EmitTimeProgressUseCase
 import com.juancoob.usecases.GetQuizUseCase
 import com.juancoob.usecases.RequestQuizUseCase
 import io.mockk.MockKAnnotations
@@ -36,6 +37,9 @@ class MainViewModelTest {
     lateinit var getQuizUseCase: GetQuizUseCase
 
     @RelaxedMockK
+    lateinit var emitTimeProgressUseCase: EmitTimeProgressUseCase
+
+    @RelaxedMockK
     lateinit var choiceUiStateMapper: ChoiceUiStateMapper
 
     @RelaxedMockK
@@ -49,6 +53,7 @@ class MainViewModelTest {
         mainViewModel = MainViewModel(
             requestQuizUseCase,
             getQuizUseCase,
+            emitTimeProgressUseCase,
             choiceUiStateMapper
         )
     }

@@ -2,6 +2,7 @@ package com.juancoob.kahootchallenge
 
 import app.cash.turbine.test
 import com.juancoob.data.QuizRepository
+import com.juancoob.data.TimerRepository
 import com.juancoob.domain.Quiz
 import com.juancoob.kahootchallenge.data.database.LocalDataSourceImpl
 import com.juancoob.kahootchallenge.data.server.RemoteDataSourceImpl
@@ -12,6 +13,7 @@ import com.juancoob.kahootchallenge.ui.ChoiceUiStateMapper
 import com.juancoob.kahootchallenge.ui.MainViewModel
 import com.juancoob.testshared.mockedQuestion
 import com.juancoob.testshared.mockedQuiz
+import com.juancoob.usecases.EmitTimeProgressUseCase
 import com.juancoob.usecases.GetQuizUseCase
 import com.juancoob.usecases.RequestQuizUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,7 +34,13 @@ class MainIntegrationTest {
         val quizRepository = QuizRepository(remoteDataSource, localDataSource)
         val requestQuizUseCase = RequestQuizUseCase(quizRepository)
         val getQuizUseCase = GetQuizUseCase(quizRepository)
-        return MainViewModel(requestQuizUseCase, getQuizUseCase, ChoiceUiStateMapper())
+        val emitTimeProgressUseCase = EmitTimeProgressUseCase(TimerRepository())
+        return MainViewModel(
+            requestQuizUseCase,
+            getQuizUseCase,
+            emitTimeProgressUseCase,
+            ChoiceUiStateMapper()
+        )
     }
 
     @Test
