@@ -19,6 +19,7 @@ dependencies {
     testImplementation Libs.Mockk.mockkLib
     testImplementation Libs.Mockk.mockkAgentJvm
     testImplementation Libs.Kotlin.Coroutines.test
+    testImplementation Libs.turbine
 }
 
 java {
