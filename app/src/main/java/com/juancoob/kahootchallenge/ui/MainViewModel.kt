@@ -9,6 +9,7 @@ import com.juancoob.domain.Quiz
 import com.juancoob.kahootchallenge.data.toErrorRetrieved
 import com.juancoob.usecases.GetQuizUseCase
 import com.juancoob.usecases.RequestQuizUseCase
+import com.juancoob.usecases.EmitTimeProgressUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -17,14 +18,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.Timer
 import javax.inject.Inject
-import kotlin.concurrent.fixedRateTimer
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val requestQuizUseCase: RequestQuizUseCase,
     private val getQuizUseCase: GetQuizUseCase,
+    private val emitTimeProgressUseCase: EmitTimeProgressUseCase,
     private val choiceUiStateMapper: ChoiceUiStateMapper
 ) : ViewModel() {
 
@@ -35,7 +35,6 @@ class MainViewModel @Inject constructor(
     private var questionIndex: Int = 0
     private var currentQuestion: Question? = null
     private var jobToUpdateTimeProgress: Job? = null
-    private var countDownTimerToUpdateTimeProgress: Timer? = null
     private var jobToGoToNextQuestion: Job? = null
 
     init {
@@ -98,7 +97,7 @@ class MainViewModel @Inject constructor(
                 )
             }
             questionIndex += 1
-            startTimerToUpdateTimeProgress(currentQuestion!!.time)
+            collectTimeProgress(currentQuestion!!.time)
         } else {
             _state.update {
                 _state.value.copy(
@@ -134,49 +133,12 @@ class MainViewModel @Inject constructor(
                 }
             )
         }
-        stopTimerToUpdateTimeProgress()
         stopJobToUpdateTimeProgress()
         startDelayToGoToNextQuestion()
     }
 
-    private fun startTimerToUpdateTimeProgress(timeInMillis: Long) {
-        jobToUpdateTimeProgress = viewModelScope.launch {
-            var counter = 1
-            var millisUntilFinished: Long = timeInMillis
-            countDownTimerToUpdateTimeProgress = fixedRateTimer(period = ONE_SECOND_IN_MILLIS) {
-                _state.update {
-                    _state.value.copy(
-                        timeProgressPercentage = (millisUntilFinished * ONE_HUNDRED_PERCENT / timeInMillis).toInt()
-                    )
-                }
-                millisUntilFinished = timeInMillis - ONE_SECOND_IN_MILLIS * counter
-                counter++
-            }
-            delay(timeInMillis)
-            stopTimerToUpdateTimeProgress()
-            updateTimesUpState()
-        }
-    }
-
-    private fun stopTimerToUpdateTimeProgress() {
-        countDownTimerToUpdateTimeProgress?.cancel()
-    }
-
-    private fun updateTimesUpState() {
-        _state.update {
-            _state.value.copy(
-                isCorrectChoice = false,
-                choiceUiStateList = it.choiceUiStateList!!.map { choiceUiState ->
-                    choiceUiState.copy(
-                        choice = choiceUiState.choice.copy(
-                            showAnswer = true
-                        )
-                    )
-                },
-                timeProgressPercentage = 0
-            )
-        }
-        startDelayToGoToNextQuestion()
+    private fun stopJobToUpdateTimeProgress() {
+        jobToUpdateTimeProgress?.cancel()
     }
 
     private fun startDelayToGoToNextQuestion() {
@@ -186,8 +148,31 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun stopJobToUpdateTimeProgress() {
-        jobToUpdateTimeProgress?.cancel()
+    private fun collectTimeProgress(totalTime: Long) {
+        jobToUpdateTimeProgress = viewModelScope.launch {
+            emitTimeProgressUseCase(totalTime).collect { timeProgress ->
+                _state.value =
+                    if (timeProgress > 0) {
+                        _state.value.copy(
+                            timeProgressPercentage = timeProgress
+                        )
+                    } else {
+                        stopJobToUpdateTimeProgress()
+                        startDelayToGoToNextQuestion()
+                        _state.value.copy(
+                            isCorrectChoice = false,
+                            choiceUiStateList = _state.value.choiceUiStateList!!.map { choiceUiState ->
+                                choiceUiState.copy(
+                                    choice = choiceUiState.choice.copy(
+                                        showAnswer = true
+                                    )
+                                )
+                            },
+                            timeProgressPercentage = timeProgress
+                        )
+                    }
+            }
+        }
     }
 
     data class UiState(
@@ -210,7 +195,6 @@ class MainViewModel @Inject constructor(
     )
 
     companion object {
-        private const val ONE_SECOND_IN_MILLIS = 1000L
         private const val DEFAULT_TIME_IN_MILLIS_TO_GO_TO_NEXT_QUESTION = 10000L
         private const val ONE_HUNDRED_PERCENT = 100
     }
