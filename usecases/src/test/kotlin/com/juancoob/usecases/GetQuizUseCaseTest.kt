@@ -4,11 +4,9 @@ import com.juancoob.data.QuizRepository
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
 
-@ExperimentalCoroutinesApi
 class GetQuizUseCaseTest {
 
     @RelaxedMockK
