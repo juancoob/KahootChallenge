@@ -7,9 +7,9 @@ import com.juancoob.domain.ErrorRetrieved
 import com.juancoob.domain.Question
 import com.juancoob.domain.Quiz
 import com.juancoob.kahootchallenge.data.toErrorRetrieved
+import com.juancoob.usecases.EmitTimeProgressUseCase
 import com.juancoob.usecases.GetQuizUseCase
 import com.juancoob.usecases.RequestQuizUseCase
-import com.juancoob.usecases.EmitTimeProgressUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -115,6 +115,8 @@ class MainViewModel @Inject constructor(
     }
 
     private fun onClickChoice(choice: Choice) = with(choice) {
+        if(isClickOnOptionsAtTheSameTime()) return
+
         _state.update {
             _state.value.copy(
                 isCorrectChoice = isCorrect,
@@ -136,6 +138,8 @@ class MainViewModel @Inject constructor(
         stopJobToUpdateTimeProgress()
         startDelayToGoToNextQuestion()
     }
+
+    private fun isClickOnOptionsAtTheSameTime() = jobToUpdateTimeProgress?.isCancelled == true
 
     private fun stopJobToUpdateTimeProgress() {
         jobToUpdateTimeProgress?.cancel()
