@@ -73,7 +73,10 @@ class MainAdapter : ListAdapter<ChoiceUiState, MainAdapter.ViewHolder>(object :
                 !choiceUiState.choice.showAnswer -> {
                     choice.apply {
                         loadBackground(choiceBackgroundId)
-                        setOnClickListener { choiceUiState.onClickChoice() }
+                        setOnClickListener {
+                            choiceUiState.onClickChoice()
+                            setOnClickListener(null)
+                        }
                     }
                     polygonImage.loadDrawable(polygonDrawableId)
                 }
