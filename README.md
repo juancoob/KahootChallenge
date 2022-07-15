@@ -30,8 +30,8 @@ The presentation pattern used is **MVVM** to survive configuration changes.
 - I have added the Gradle plugin library from Ben Manes because it is a well-known library to update dependencies used in different modules.
 
 ## TO-DO 👨‍🔧
-- Finish MainViewModel.
 - Add UI tests to check the code quality.
 - Mock the web server in the UI test to mock the server response.
+- Improve MainAdapter
 - Create a custom progress bar view to show how much time the user has. Currently, the project uses a LinearProgressIndicator.
 - Add MainState to separate the UI state with the ui rendering
