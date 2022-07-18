@@ -7,17 +7,17 @@ object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.1"
     const val gradleVersionsBenManesPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
     const val junit = "junit:junit:4.13.2"
-    const val arrowCore = "io.arrow-kt:arrow-core:1.0.1"
+    const val arrowCore = "io.arrow-kt:arrow-core:1.1.2"
     const val turbine = "app.cash.turbine:turbine:0.8.0"
 
     object Kotlin {
-        private const val version = "1.7.0"
+        private const val version = "1.7.10"
         const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
         const val kotlinxSerializationJson =
-            "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2"
+            "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3"
 
         object Coroutines {
-            private const val version = "1.6.3"
+            private const val version = "1.6.4"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
             const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
         }
@@ -31,12 +31,12 @@ object Libs {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 
         object Activity {
-            private const val version = "1.4.0"
+            private const val version = "1.5.0"
             const val ktx = "androidx.activity:activity-ktx:$version"
         }
 
         object Lifecycle {
-            private const val version = "2.4.1"
+            private const val version = "2.5.0"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
             const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
         }
@@ -70,7 +70,7 @@ object Libs {
 
     object Retrofit {
         const val retrofit2 = "com.squareup.retrofit2:retrofit:2.9.0"
-        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:4.9.3"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:4.10.0"
         const val retrofit2KotlinxSerializationConverter =
             "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
     }
