@@ -4,8 +4,10 @@ import app.cash.turbine.test
 import com.juancoob.data.QuizRepository
 import com.juancoob.data.TimerRepository
 import com.juancoob.domain.Quiz
+import com.juancoob.kahootchallenge.data.database.DbLocalMapper
 import com.juancoob.kahootchallenge.data.database.LocalDataSourceImpl
 import com.juancoob.kahootchallenge.data.server.RemoteDataSourceImpl
+import com.juancoob.kahootchallenge.data.server.RemoteLocalMapper
 import com.juancoob.kahootchallenge.fakes.FakeQuizDao
 import com.juancoob.kahootchallenge.fakes.FakeRemoteService
 import com.juancoob.kahootchallenge.testRules.CoroutineTestRule
@@ -29,8 +31,8 @@ class MainIntegrationTest {
     val coroutinesTestRule = CoroutineTestRule()
 
     private fun viewModelBuilder(localData: Quiz?): MainViewModel {
-        val localDataSource = LocalDataSourceImpl(FakeQuizDao(localData))
-        val remoteDataSource = RemoteDataSourceImpl(FakeRemoteService(mockedQuiz))
+        val localDataSource = LocalDataSourceImpl(FakeQuizDao(localData), DbLocalMapper())
+        val remoteDataSource = RemoteDataSourceImpl(FakeRemoteService(mockedQuiz), RemoteLocalMapper())
         val quizRepository = QuizRepository(remoteDataSource, localDataSource)
         val requestQuizUseCase = RequestQuizUseCase(quizRepository)
         val getQuizUseCase = GetQuizUseCase(quizRepository)
@@ -57,7 +59,6 @@ class MainIntegrationTest {
                     onRetrieveQuestion = mainViewModel::retrieveQuestion
                 ), awaitItem()
             )
-            cancel()
         }
     }
 
@@ -82,7 +83,6 @@ class MainIntegrationTest {
                     onRetrieveQuestion = mainViewModel::retrieveQuestion
                 ), awaitItem()
             )
-            cancel()
         }
     }
 
