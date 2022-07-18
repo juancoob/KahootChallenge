@@ -1,8 +1,8 @@
 package com.juancoob.kahootchallenge.fakes
 
 import com.juancoob.domain.Quiz
+import com.juancoob.kahootchallenge.data.database.DbLocalMapper
 import com.juancoob.kahootchallenge.data.database.QuizDao
-import com.juancoob.kahootchallenge.data.database.fromLocalModel
 import com.juancoob.kahootchallenge.data.database.models.QuestionWithChoices
 import com.juancoob.kahootchallenge.data.database.models.QuizWithQuestions
 import kotlinx.coroutines.flow.Flow
@@ -16,18 +16,33 @@ class FakeQuizDao(quiz: Quiz?) : QuizDao {
     private lateinit var inMemoryQuiz: DbQuiz
     private var inMemoryQuestions: MutableList<DbQuestion> = mutableListOf()
     private var inMemoryChoices: MutableList<DbChoice> = mutableListOf()
+    private var dbLocalMapper: DbLocalMapper = DbLocalMapper()
 
     init {
         if (quiz != null) {
-            inMemoryQuiz = quiz.fromLocalModel()
+            inMemoryQuiz = with(dbLocalMapper) { quiz.fromLocalModel() }
 
             for (question in quiz.questions) {
                 val questionIndex = quiz.questions.indexOf(question)
-                inMemoryQuestions.add(question.fromLocalModel(quiz.uuid, questionIndex))
+                inMemoryQuestions.add(
+                    with(dbLocalMapper) {
+                        question.fromLocalModel(
+                            quiz.uuid,
+                            questionIndex
+                        )
+                    }
+                )
 
                 for (choice in question.choices) {
                     val choiceIndex = question.choices.indexOf(choice)
-                    inMemoryChoices.add(choice.fromLocalModel(questionIndex, choiceIndex))
+                    inMemoryChoices.add(
+                        with(dbLocalMapper) {
+                            choice.fromLocalModel(
+                                questionIndex,
+                                choiceIndex
+                            )
+                        }
+                    )
                 }
             }
         }
@@ -50,7 +65,10 @@ class FakeQuizDao(quiz: Quiz?) : QuizDao {
     override fun getQuiz(): Flow<QuizWithQuestions> {
         val questionWithChoices = mutableListOf<QuestionWithChoices>()
         inMemoryQuestions.forEach { question ->
-            val element = QuestionWithChoices(question, inMemoryChoices.filter { it.questionId == question.id })
+            val element = QuestionWithChoices(
+                question,
+                inMemoryChoices.filter { it.questionId == question.id }
+            )
             questionWithChoices.add(element)
         }
         val quizWithChoices = QuizWithQuestions(inMemoryQuiz, questionWithChoices)
