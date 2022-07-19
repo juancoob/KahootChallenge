@@ -1,11 +1,9 @@
-package com.juancoob.kahootchallenge
+package com.juancoob.kahootchallenge.ui
 
 import app.cash.turbine.test
 import com.juancoob.domain.Choice
 import com.juancoob.domain.ErrorRetrieved
 import com.juancoob.kahootchallenge.testRules.CoroutineTestRule
-import com.juancoob.kahootchallenge.ui.ChoiceUiStateMapper
-import com.juancoob.kahootchallenge.ui.MainViewModel
 import com.juancoob.testshared.mockedChoice
 import com.juancoob.testshared.mockedQuestion
 import com.juancoob.testshared.mockedQuiz

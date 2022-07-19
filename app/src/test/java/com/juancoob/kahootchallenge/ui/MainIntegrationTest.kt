@@ -1,4 +1,4 @@
-package com.juancoob.kahootchallenge
+package com.juancoob.kahootchallenge.ui
 
 import app.cash.turbine.test
 import com.juancoob.data.QuizRepository
@@ -11,8 +11,6 @@ import com.juancoob.kahootchallenge.data.server.RemoteLocalMapper
 import com.juancoob.kahootchallenge.fakes.FakeQuizDao
 import com.juancoob.kahootchallenge.fakes.FakeRemoteService
 import com.juancoob.kahootchallenge.testRules.CoroutineTestRule
-import com.juancoob.kahootchallenge.ui.ChoiceUiStateMapper
-import com.juancoob.kahootchallenge.ui.MainViewModel
 import com.juancoob.testshared.mockedQuestion
 import com.juancoob.testshared.mockedQuiz
 import com.juancoob.usecases.EmitTimeProgressUseCase
@@ -32,7 +30,8 @@ class MainIntegrationTest {
 
     private fun viewModelBuilder(localData: Quiz?): MainViewModel {
         val localDataSource = LocalDataSourceImpl(FakeQuizDao(localData), DbLocalMapper())
-        val remoteDataSource = RemoteDataSourceImpl(FakeRemoteService(mockedQuiz), RemoteLocalMapper())
+        val remoteDataSource =
+            RemoteDataSourceImpl(FakeRemoteService(mockedQuiz), RemoteLocalMapper())
         val quizRepository = QuizRepository(remoteDataSource, localDataSource)
         val requestQuizUseCase = RequestQuizUseCase(quizRepository)
         val getQuizUseCase = GetQuizUseCase(quizRepository)

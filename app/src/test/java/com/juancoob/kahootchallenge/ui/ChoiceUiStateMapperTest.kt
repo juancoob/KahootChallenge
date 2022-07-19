@@ -1,7 +1,5 @@
-package com.juancoob.kahootchallenge
+package com.juancoob.kahootchallenge.ui
 
-import com.juancoob.kahootchallenge.ui.ChoiceUiStateMapper
-import com.juancoob.kahootchallenge.ui.MainViewModel
 import com.juancoob.testshared.mockedChoice
 import io.mockk.MockKAnnotations
 import io.mockk.every
