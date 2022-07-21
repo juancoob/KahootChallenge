@@ -26,7 +26,6 @@ class RequestDispatcher : Dispatcher() {
     }
 }
 
-
 class RequestDispatcherWithEmptyResult : Dispatcher() {
     override fun dispatch(request: RecordedRequest): MockResponse = when {
         request.path?.contains("fb4054fc-6a71-463e-88cd-243876715bc1") == true ->
