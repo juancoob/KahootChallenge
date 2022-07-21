@@ -62,6 +62,7 @@ class MainInstrumentationTest {
     fun click_on_the_play_button_starts_the_game() {
         onView(withId(R.id.play_button)).check(matches(withText(R.string.yeah)))
         onView(withId(R.id.play_button)).perform(click())
+        onView(withId(R.id.question_number)).check(matches(withText("1/12")))
     }
 
     @Test
@@ -95,8 +96,6 @@ class MainInstrumentationTest {
     @Test
     fun click_on_the_continue_button_shows_the_next_question() {
         click_on_the_play_button_starts_the_game()
-
-        onView(withId(R.id.question_number)).check(matches(withText("1/12")))
 
         onView(withId(R.id.choice_list)).perform(
             actionOnItemAtPosition<ViewHolder>(
@@ -134,8 +133,6 @@ class MainInstrumentationTest {
         onView(withId(R.id.try_again)).perform(click())
 
         click_on_the_play_button_starts_the_game()
-
-        onView(withId(R.id.question_number)).check(matches(withText("1/12")))
     }
 
     @Test
