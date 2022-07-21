@@ -63,8 +63,9 @@ dependencies {
     kapt Libs.GlideBumptech.compiler
 
     implementation Libs.Retrofit.retrofit2
-    implementation Libs.Retrofit.loggingInterceptor
     implementation Libs.Retrofit.retrofit2KotlinxSerializationConverter
+
+    implementation Libs.OkHttp3.loggingInterceptor
 
     implementation Libs.Hilt.hiltAndroid
     kapt Libs.Hilt.hiltCompiler
@@ -82,6 +83,11 @@ dependencies {
     testImplementation Libs.Kotlin.Coroutines.test
     testImplementation Libs.turbine
 
-    androidTestImplementation Libs.AndroidX.Testing.Ext.junit
+    androidTestImplementation Libs.AndroidX.Testing.Ext.junitKtx
     androidTestImplementation Libs.AndroidX.Testing.Espresso.contrib
+    androidTestImplementation Libs.AndroidX.Testing.runner
+    androidTestImplementation Libs.AndroidX.Testing.rules
+    androidTestImplementation Libs.OkHttp3.mockWebServer
+    androidTestImplementation Libs.Hilt.hiltAndroidTesting
+    kaptAndroidTest Libs.Hilt.hiltAndroidCompiler
 }

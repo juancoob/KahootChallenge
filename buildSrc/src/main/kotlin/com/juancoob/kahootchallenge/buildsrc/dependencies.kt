@@ -49,10 +49,13 @@ object Libs {
         }
 
         object Testing {
+            private const val version = "1.4.0"
+            const val runner = "androidx.test:runner:$version"
+            const val rules = "androidx.test:rules:$version"
 
             object Ext {
                 private const val version = "1.1.3"
-                const val junit = "androidx.test.ext:junit:$version"
+                const val junitKtx = "androidx.test.ext:junit-ktx:$version"
             }
 
             object Espresso {
@@ -70,15 +73,22 @@ object Libs {
 
     object Retrofit {
         const val retrofit2 = "com.squareup.retrofit2:retrofit:2.9.0"
-        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:4.10.0"
         const val retrofit2KotlinxSerializationConverter =
             "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0"
+    }
+
+    object OkHttp3 {
+        private const val version = "4.10.0"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
+        const val mockWebServer = "com.squareup.okhttp3:mockwebserver:$version"
     }
 
     object Hilt {
         private const val version = "2.42"
         const val hiltAndroid = "com.google.dagger:hilt-android:$version"
         const val hiltCompiler = "com.google.dagger:hilt-compiler:$version"
+        const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:$version"
+        const val hiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:$version"
         const val hiltAndroidGradlePlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
     }
 
