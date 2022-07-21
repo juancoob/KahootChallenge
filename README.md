@@ -18,7 +18,7 @@ The presentation pattern used is **MVVM** to survive configuration changes.
 ## Reasoning 🤔
 - I have used a clean architecture to separate layers and have a scalable project.
 - I have implemented MVVM as a design pattern because it is easier to follow the UDF.
-- I have used Kotlin **coroutines** because they are lightweight threads for async processes and the standard way in Android.
+- I have used Kotlin **coroutines** because we can run many on a single thread due to the suspension that doesn't block the main thread and are the standard way in Android.
 - I have used **Kotlin serialization** because it comes from the Kotlin language to serialize data from the REST API service.
 - I have used **Retrofit** as an API REST client because it is recommended and easy to use.
 - I have managed the **Arrow** library to handle errors and data because it is a powerful and straightforward library.
@@ -30,8 +30,6 @@ The presentation pattern used is **MVVM** to survive configuration changes.
 - I have added the Gradle plugin library from Ben Manes because it is a well-known library to update dependencies used in different modules.
 
 ## TO-DO 👨‍🔧
-- Add UI tests to check the code quality.
-- Mock the web server in the UI test to mock the server response.
 - Improve MainAdapter
 - Create a custom progress bar view to show how much time the user has. Currently, the project uses a LinearProgressIndicator.
 - Add MainState to separate the UI state with the ui rendering
