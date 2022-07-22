@@ -44,6 +44,9 @@ dependencies {
     implementation project(":data")
     implementation project(":domain")
     testImplementation project(":testshared")
+    androidTestImplementation project(":testshared")
+
+    // Android
 
     implementation Libs.AndroidX.coreKtx
     implementation Libs.AndroidX.appCompact
@@ -56,38 +59,62 @@ dependencies {
     implementation Libs.AndroidX.Lifecycle.viewModelKtx
     implementation Libs.AndroidX.Lifecycle.runtimeKtx
 
-    implementation Libs.Kotlin.Coroutines.core
+    // Kotlin
+
     implementation Libs.Kotlin.kotlinxSerializationJson
+    implementation Libs.Kotlin.Coroutines.core
+
+    // Image loader
 
     implementation Libs.GlideBumptech.glide
     kapt Libs.GlideBumptech.compiler
+
+    // REST client
 
     implementation Libs.Retrofit.retrofit2
     implementation Libs.Retrofit.retrofit2KotlinxSerializationConverter
 
     implementation Libs.OkHttp3.loggingInterceptor
 
+    // DI
+
     implementation Libs.Hilt.hiltAndroid
     kapt Libs.Hilt.hiltCompiler
+
+    // DB
 
     implementation Libs.AndroidX.Room.roomRuntime
     implementation Libs.AndroidX.Room.roomKtx
     kapt Libs.AndroidX.Room.roomCompiler
 
+    // Error management
+
     implementation Libs.arrowCore
 
+    // Testing
+
     testImplementation Libs.junit
+
     testImplementation Libs.Kotlin.Coroutines.test
+
     testImplementation Libs.Mockk.mockkLib
     testImplementation Libs.Mockk.mockkAgentJvm
-    testImplementation Libs.Kotlin.Coroutines.test
+
     testImplementation Libs.turbine
 
-    androidTestImplementation Libs.AndroidX.Testing.Ext.junitKtx
-    androidTestImplementation Libs.AndroidX.Testing.Espresso.contrib
+    // Instrumented testing
+
     androidTestImplementation Libs.AndroidX.Testing.runner
     androidTestImplementation Libs.AndroidX.Testing.rules
+
+    androidTestImplementation Libs.AndroidX.Testing.Ext.junitKtx
+
+    androidTestImplementation Libs.AndroidX.Testing.Espresso.contrib
+
+    androidTestImplementation Libs.Kotlin.Coroutines.test
+
     androidTestImplementation Libs.OkHttp3.mockWebServer
+
     androidTestImplementation Libs.Hilt.hiltAndroidTesting
     kaptAndroidTest Libs.Hilt.hiltAndroidCompiler
 }
