@@ -18,7 +18,6 @@ import com.juancoob.kahootchallenge.ui.common.EspressoIdlingResource
 import com.juancoob.kahootchallenge.ui.common.OkHttp3IdlingResource
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.OkHttpClient
 import org.hamcrest.CoreMatchers.containsString
 import org.junit.After
@@ -28,7 +27,6 @@ import org.junit.Test
 import java.lang.Thread.sleep
 import javax.inject.Inject
 
-@ExperimentalCoroutinesApi
 @HiltAndroidTest
 class MainInstrumentationTest {
 
@@ -124,6 +122,7 @@ class MainInstrumentationTest {
 
         onView(withId(R.id.error_text)).check(matches(withText(containsString("Unknown Error"))))
     }
+
     @Test
     fun when_an_error_prompts_up_user_can_click_on_the_retry_button_to_retrieve_the_first_question() {
         empty_results_from_server_retrieves_an_unknown_error_message()
