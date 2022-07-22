@@ -10,13 +10,21 @@ dependencies {
     implementation project(":domain")
     testImplementation project(":testshared")
 
+    // Inject API
+
     implementation Libs.Javax.javaxInject
+
+    // Kotlin coroutines
 
     implementation Libs.Kotlin.Coroutines.core
 
+    // Testing
+
     testImplementation Libs.junit
+
     testImplementation Libs.Mockk.mockkLib
     testImplementation Libs.Mockk.mockkAgentJvm
+
     testImplementation Libs.Kotlin.Coroutines.test
 }
 
