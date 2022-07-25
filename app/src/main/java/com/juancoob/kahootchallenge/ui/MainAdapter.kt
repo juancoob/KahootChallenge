@@ -31,31 +31,42 @@ class MainAdapter : ListAdapter<ChoiceUiState, MainAdapter.ViewHolder>(object :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val choiceUiState = getItem(position)
-        when (val choiceUiStatePosition = currentList.indexOf(choiceUiState)) {
-            FIRST_POSITION -> holder.populateChoice(
-                choiceUiState,
-                choiceUiStatePosition,
-                R.drawable.background_red_answer_button,
-                R.drawable.ic_triangle
-            )
-            SECOND_POSITION -> holder.populateChoice(
-                choiceUiState,
-                choiceUiStatePosition,
-                R.drawable.background_blue_answer_button,
-                R.drawable.ic_diamond
-            )
-            THIRD_POSITION -> holder.populateChoice(
-                choiceUiState,
-                choiceUiStatePosition,
-                R.drawable.background_orange_answer_button,
-                R.drawable.ic_circle
-            )
-            FOURTH_POSITION -> holder.populateChoice(
-                choiceUiState,
-                choiceUiStatePosition,
-                R.drawable.background_green_answer_button,
-                R.drawable.ic_square
-            )
+        val choiceUiStatePosition = currentList.indexOf(choiceUiState)
+        when {
+            choiceUiStatePosition % 2 == 0 -> {
+                if (choiceUiStatePosition % FOUR_CHOICES == 0) {
+                    holder.populateChoice(
+                        choiceUiState,
+                        choiceUiStatePosition,
+                        R.drawable.background_red_answer_button,
+                        R.drawable.ic_triangle
+                    )
+                } else {
+                    holder.populateChoice(
+                        choiceUiState,
+                        choiceUiStatePosition,
+                        R.drawable.background_orange_answer_button,
+                        R.drawable.ic_circle
+                    )
+                }
+            }
+            choiceUiStatePosition % 2 != 0 -> {
+                if ((choiceUiStatePosition - 1) % FOUR_CHOICES == 0) {
+                    holder.populateChoice(
+                        choiceUiState,
+                        choiceUiStatePosition,
+                        R.drawable.background_blue_answer_button,
+                        R.drawable.ic_diamond
+                    )
+                } else {
+                    holder.populateChoice(
+                        choiceUiState,
+                        choiceUiStatePosition,
+                        R.drawable.background_green_answer_button,
+                        R.drawable.ic_square
+                    )
+                }
+            }
         }
     }
 
@@ -119,9 +130,6 @@ class MainAdapter : ListAdapter<ChoiceUiState, MainAdapter.ViewHolder>(object :
     }
 
     companion object {
-        private const val FIRST_POSITION = 0
-        private const val SECOND_POSITION = 1
-        private const val THIRD_POSITION = 2
-        private const val FOURTH_POSITION = 3
+        private const val FOUR_CHOICES = 4
     }
 }
