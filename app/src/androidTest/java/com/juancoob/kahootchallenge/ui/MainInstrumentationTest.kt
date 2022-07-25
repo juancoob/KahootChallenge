@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -105,6 +106,27 @@ class MainInstrumentationTest {
         onView(withId(R.id.continue_button)).perform(click())
 
         onView(withId(R.id.question_number)).check(matches(withText("2/12")))
+    }
+
+    @Test
+    fun with_several_choices_the_adapter_adds_them_with_their_correct_background() {
+        click_on_the_continue_button_shows_the_next_question()
+
+        onView(withId(R.id.choice_list)).perform(
+            actionOnItemAtPosition<ViewHolder>(
+                8,
+                scrollTo()
+            )
+        )
+
+        onView(withId(R.id.choice_list)).perform(
+            actionOnItemAtPosition<ViewHolder>(
+                8,
+                click()
+            )
+        )
+
+        onView(withId(R.id.choice_type_bar)).check(matches(withText(R.string.wrong)))
     }
 
     @Test

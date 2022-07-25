@@ -95,7 +95,7 @@
           }
         },
         {
-          "answer": "A momument to a great war victory",
+          "answer": "A monument to a great war victory",
           "correct": false,
           "languageInfo": {
             "language": "en-US",
@@ -105,6 +105,51 @@
         },
         {
           "answer": "A temple",
+          "correct": false,
+          "languageInfo": {
+            "language": "en-US",
+            "lastUpdatedOn": 1657623856454,
+            "readAloudSupported": true
+          }
+        },
+        {
+          "answer": "A disco",
+          "correct": false,
+          "languageInfo": {
+            "language": "en-US",
+            "lastUpdatedOn": 1657623856454,
+            "readAloudSupported": true
+          }
+        },
+        {
+          "answer": "An university",
+          "correct": false,
+          "languageInfo": {
+            "language": "en-US",
+            "lastUpdatedOn": 1657623856454,
+            "readAloudSupported": true
+          }
+        },
+        {
+          "answer": "A modern cinema",
+          "correct": false,
+          "languageInfo": {
+            "language": "en-US",
+            "lastUpdatedOn": 1657623856454,
+            "readAloudSupported": true
+          }
+        },
+        {
+          "answer": "A theme park",
+          "correct": false,
+          "languageInfo": {
+            "language": "en-US",
+            "lastUpdatedOn": 1657623856454,
+            "readAloudSupported": true
+          }
+        },
+        {
+          "answer": "A place to raise awareness about veganism",
           "correct": false,
           "languageInfo": {
             "language": "en-US",
