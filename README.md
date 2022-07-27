@@ -30,6 +30,5 @@ The presentation pattern used is **MVVM** to survive configuration changes.
 - I have added the Gradle plugin library from Ben Manes because it is a well-known library to update dependencies used in different modules.
 
 ## TO-DO 👨‍🔧
-- Improve MainAdapter
-- Create a custom progress bar view to show how much time the user has. Currently, the project uses a LinearProgressIndicator.
+- Improve the custom count down progress bar view to show how much time the user has.
 - Add MainState to separate the UI state with the ui rendering
