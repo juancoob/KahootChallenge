@@ -139,14 +139,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_min="240dp" />
 
-    <com.google.android.material.progressindicator.LinearProgressIndicator
+    <com.juancoob.kahootchallenge.common.CountdownProgressBarView
         android:id="@+id/remaining_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:time="20" />
 
     <TextView
         android:id="@+id/message"
