@@ -148,8 +148,8 @@ class MainActivity : AppCompatActivity() {
             )
             populateChoices(choiceUiStateList)
 
-            if (timeProgressPercentage != null && isCorrectChoice == null) {
-                setProgressBar(timeProgressPercentage)
+            if (totalTimeInSeconds != null && timeProgressPercentage != null && isCorrectChoice == null) {
+                setProgressBar(totalTimeInSeconds, timeProgressPercentage)
             }
         }
     }
@@ -170,8 +170,12 @@ class MainActivity : AppCompatActivity() {
         adapter.submitList(choiceUiStateList)
     }
 
-    private fun setProgressBar(timeProgressPercentage: Int) {
-        binding.remainingTime.setProgressCompat(timeProgressPercentage, true)
+    private fun setProgressBar(totalTimeInSeconds: Int, timeProgressPercentage: Int) {
+        binding.remainingTime.updateCountdownProgressBar(
+            totalTimeInSeconds,
+            timeProgressPercentage,
+            binding.root.width
+        )
     }
 
     private fun shouldInitContinueButtonListenerToRetrieveNextQuestion(onRetrieveQuestion: (() -> Unit)?) {
