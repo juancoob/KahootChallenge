@@ -141,6 +141,8 @@ class MainViewModelTest {
                 val expectedPoints = 0
                 val expectedInitialTimeProgressPercentage = 100
                 val expectedNextTimeProgressPercentage = 75
+                val expectedTotalTimeInSeconds = 20
+                val expectedNextTotalTimeInSeconds = 19
                 every { emitTimeProgressUseCase(any()) } returns flowOf(
                     expectedNextTimeProgressPercentage
                 )
@@ -166,6 +168,7 @@ class MainViewModelTest {
                                 it.toChoiceUiState(lambda)
                             }
                         },
+                        totalTimeInSeconds = expectedTotalTimeInSeconds,
                         timeProgressPercentage = expectedInitialTimeProgressPercentage,
                         points = expectedPoints
                     ), awaitItem()
@@ -182,6 +185,7 @@ class MainViewModelTest {
                                 it.toChoiceUiState(lambda)
                             }
                         },
+                        totalTimeInSeconds = expectedNextTotalTimeInSeconds,
                         timeProgressPercentage = expectedNextTimeProgressPercentage,
                         points = expectedPoints
                     ), awaitItem()
@@ -204,6 +208,8 @@ class MainViewModelTest {
                 val expectedPoints = 0
                 val expectedInitialTimeProgressPercentage = 100
                 val expectedNextTimeProgressPercentage = 0
+                val expectedTotalTimeInSeconds = 20
+                val expectedNextTotalTimeInSeconds = 0
                 every { emitTimeProgressUseCase(any()) } returns flowOf(
                     expectedNextTimeProgressPercentage
                 )
@@ -229,6 +235,7 @@ class MainViewModelTest {
                                 it.toChoiceUiState(lambda)
                             }
                         },
+                        totalTimeInSeconds = expectedTotalTimeInSeconds,
                         timeProgressPercentage = expectedInitialTimeProgressPercentage,
                         points = expectedPoints
                     ), awaitItem()
@@ -245,6 +252,7 @@ class MainViewModelTest {
                                 it.copy(showAnswer = true).toChoiceUiState(lambda)
                             }
                         },
+                        totalTimeInSeconds = expectedNextTotalTimeInSeconds,
                         timeProgressPercentage = expectedNextTimeProgressPercentage,
                         points = expectedPoints
                     ), awaitItem()
@@ -259,6 +267,7 @@ class MainViewModelTest {
             val expectedQuestionNumber = 1
             val expectedPoints = 0
             val expectedPreviousTimeProgressPercentage = 75
+            val expectedTotalTimeInSeconds = 19
 
             mainViewModel.state.test {
 
@@ -276,6 +285,7 @@ class MainViewModelTest {
                                 it.toChoiceUiState(lambda)
                             }
                         },
+                        totalTimeInSeconds = expectedTotalTimeInSeconds,
                         timeProgressPercentage = expectedPreviousTimeProgressPercentage,
                         points = expectedPoints
                     ), awaitItem()
@@ -289,6 +299,7 @@ class MainViewModelTest {
                         numberOfQuestions = mockedQuiz.questions.size,
                         onRetrieveQuestion = mainViewModel::retrieveQuestion,
                         choiceUiStateList = null,
+                        totalTimeInSeconds = expectedTotalTimeInSeconds,
                         timeProgressPercentage = expectedPreviousTimeProgressPercentage,
                         points = expectedPoints
                     ), awaitItem()
