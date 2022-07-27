@@ -20,4 +20,7 @@
     <string name="connectivity_error">Connectivity Error</string>
     <string name="server_error">Server Error: </string>
     <string name="unknown_error">Unknown Error: </string>
+
+    <!-- countdown progress bar -->
+    <string name="time_progress">time progress</string>
 </resources>
