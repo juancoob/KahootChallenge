@@ -92,6 +92,7 @@ class MainViewModel @Inject constructor(
                             choice.toChoiceUiState { onClickChoice(choice) }
                         }
                     },
+                    totalTimeInSeconds = (currentQuestion!!.time / ONE_SECOND_IN_MILLIS).toInt(),
                     timeProgressPercentage = ONE_HUNDRED_PERCENT,
                     points = if (questionIndex == 0) 0 else uiState.points,
                 )
@@ -158,6 +159,7 @@ class MainViewModel @Inject constructor(
                 _state.value =
                     if (timeProgress > 0) {
                         _state.value.copy(
+                            totalTimeInSeconds = _state.value.totalTimeInSeconds?.minus(1),
                             timeProgressPercentage = timeProgress
                         )
                     } else {
@@ -172,6 +174,7 @@ class MainViewModel @Inject constructor(
                                     )
                                 )
                             },
+                            totalTimeInSeconds = 0,
                             timeProgressPercentage = timeProgress
                         )
                     }
@@ -187,6 +190,7 @@ class MainViewModel @Inject constructor(
         val questionNumber: Int? = null,
         val numberOfQuestions: Int? = null,
         val choiceUiStateList: List<ChoiceUiState>? = null,
+        val totalTimeInSeconds: Int? = null,
         val timeProgressPercentage: Int? = null,
         val points: Int? = null,
         val errorRetrieved: ErrorRetrieved? = null,
@@ -199,6 +203,7 @@ class MainViewModel @Inject constructor(
     )
 
     companion object {
+        private const val ONE_SECOND_IN_MILLIS = 1000L
         private const val DEFAULT_TIME_IN_MILLIS_TO_GO_TO_NEXT_QUESTION = 10000L
         private const val ONE_HUNDRED_PERCENT = 100
     }
