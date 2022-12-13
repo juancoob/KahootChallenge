@@ -1,20 +1,20 @@
-@file:Suppress("MatchingDeclarationName")
+@file:Suppress("MatchingDeclarationName", "unused")
 
 package com.juancoob.kahootchallenge.buildsrc
 
 object Libs {
 
-    const val androidGradlePlugin = "com.android.tools.build:gradle:7.2.1"
-    const val gradleVersionsBenManesPlugin = "com.github.ben-manes:gradle-versions-plugin:0.42.0"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:7.3.1"
+    const val gradleVersionsBenManesPlugin = "com.github.ben-manes:gradle-versions-plugin:0.44.0"
     const val junit = "junit:junit:4.13.2"
-    const val arrowCore = "io.arrow-kt:arrow-core:1.1.2"
-    const val turbine = "app.cash.turbine:turbine:0.8.0"
+    const val arrowCore = "io.arrow-kt:arrow-core:1.1.3"
+    const val turbine = "app.cash.turbine:turbine:0.12.1"
 
     object Kotlin {
-        private const val version = "1.7.10"
+        private const val version = "1.7.22"
         const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
         const val kotlinxSerializationJson =
-            "org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3"
+            "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
 
         object Coroutines {
             private const val version = "1.6.4"
@@ -24,34 +24,33 @@ object Libs {
     }
 
     object AndroidX {
-        const val coreKtx = "androidx.core:core-ktx:1.8.0"
-        const val appCompact = "androidx.appcompat:appcompat:1.4.2"
+        const val coreKtx = "androidx.core:core-ktx:1.9.0"
+        const val appCompact = "androidx.appcompat:appcompat:1.5.1"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.1"
-        const val material = "com.google.android.material:material:1.6.1"
+        const val material = "com.google.android.material:material:1.7.0"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.4"
 
         object Activity {
-            private const val version = "1.5.0"
+            private const val version = "1.6.1"
             const val ktx = "androidx.activity:activity-ktx:$version"
         }
 
         object Lifecycle {
-            private const val version = "2.5.0"
+            private const val version = "2.5.1"
             const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
             const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
         }
 
         object Room {
-            private const val version = "2.4.2"
+            private const val version = "2.4.3"
             const val roomRuntime = "androidx.room:room-runtime:$version"
             const val roomKtx = "androidx.room:room-ktx:$version"
             const val roomCompiler = "androidx.room:room-compiler:$version"
         }
 
         object Testing {
-            private const val version = "1.4.0"
-            const val runner = "androidx.test:runner:$version"
-            const val rules = "androidx.test:rules:$version"
+            const val runner = "androidx.test:runner:1.5.1"
+            const val rules = "androidx.test:rules:1.5.0"
 
             object Ext {
                 private const val version = "1.1.3"
@@ -66,7 +65,7 @@ object Libs {
     }
 
     object GlideBumptech {
-        private const val version = "4.13.2"
+        private const val version = "4.14.2"
         const val glide = "com.github.bumptech.glide:glide:$version"
         const val compiler = "com.github.bumptech.glide:compiler:$version"
     }
@@ -84,7 +83,7 @@ object Libs {
     }
 
     object Hilt {
-        private const val version = "2.42"
+        private const val version = "2.44.2"
         const val hiltAndroid = "com.google.dagger:hilt-android:$version"
         const val hiltCompiler = "com.google.dagger:hilt-compiler:$version"
         const val hiltAndroidTesting = "com.google.dagger:hilt-android-testing:$version"
@@ -97,7 +96,7 @@ object Libs {
     }
 
     object Mockk {
-        private const val version = "1.12.4"
+        private const val version = "1.13.3"
         const val mockkLib = "io.mockk:mockk:$version"
         const val mockkAgentJvm = "io.mockk:mockk-agent-jvm:$version"
     }
