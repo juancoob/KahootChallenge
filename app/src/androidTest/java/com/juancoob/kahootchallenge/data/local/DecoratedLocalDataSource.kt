@@ -8,7 +8,7 @@ import com.juancoob.kahootchallenge.ui.common.wrapBlockWithIdlingResources
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class WrapLocalDataSourceWithIdlingResources @Inject constructor(
+class DecoratedLocalDataSource @Inject constructor(
     private val localDataSourceImpl: LocalDataSourceImpl
 ) : LocalDataSource {
 

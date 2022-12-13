@@ -7,7 +7,7 @@ import com.juancoob.domain.Quiz
 import com.juancoob.kahootchallenge.ui.common.wrapBlockWithIdlingResources
 import javax.inject.Inject
 
-class WrapRemoteDataSourceWithIdlingResources @Inject constructor(
+class DecoratedRemoteDataSource @Inject constructor(
     private val remoteDataSourceImpl: RemoteDataSourceImpl
 ) : RemoteDataSource {
 

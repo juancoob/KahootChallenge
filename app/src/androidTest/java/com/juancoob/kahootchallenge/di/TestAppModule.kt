@@ -5,8 +5,8 @@ import androidx.room.Room
 import com.juancoob.data.datasource.LocalDataSource
 import com.juancoob.data.datasource.RemoteDataSource
 import com.juancoob.kahootchallenge.data.database.QuizDatabase
-import com.juancoob.kahootchallenge.data.local.WrapLocalDataSourceWithIdlingResources
-import com.juancoob.kahootchallenge.data.server.WrapRemoteDataSourceWithIdlingResources
+import com.juancoob.kahootchallenge.data.local.DecoratedLocalDataSource
+import com.juancoob.kahootchallenge.data.server.DecoratedRemoteDataSource
 import com.juancoob.kahootchallenge.di.qualifier.ApiUrl
 import dagger.Binds
 import dagger.Module
@@ -51,11 +51,11 @@ object AppModuleTestProviderForRoom {
     components = [SingletonComponent::class],
     replaces = [AppModuleBinderForRemoteDataSource::class]
 )
-abstract class AppModuleTestBinderForWrappingRemoteDataSourceWithIdlingResources {
+abstract class AppModuleTestBinderForDecoratingRemoteDataSourceWithIdlingResources {
 
     @Binds
     abstract fun bindsRemoteDataSourceTest(
-        wrapRemoteDataSourceWithIdlingResources: WrapRemoteDataSourceWithIdlingResources
+        decoratedRemoteDataSource: DecoratedRemoteDataSource
     ): RemoteDataSource
 }
 
@@ -64,10 +64,10 @@ abstract class AppModuleTestBinderForWrappingRemoteDataSourceWithIdlingResources
     components = [SingletonComponent::class],
     replaces = [AppModuleBinderForLocalDataSource::class]
 )
-abstract class AppModuleTestBinderForWrappingLocalDataSourceWithIdlingResources {
+abstract class AppModuleTestBinderForDecoratingLocalDataSourceWithIdlingResources {
 
     @Binds
     abstract fun bindsLocalDataSourceTest(
-        wrapLocalDataSourceWithIdlingResources: WrapLocalDataSourceWithIdlingResources
+        decoratedLocalDataSource: DecoratedLocalDataSource
     ): LocalDataSource
 }
