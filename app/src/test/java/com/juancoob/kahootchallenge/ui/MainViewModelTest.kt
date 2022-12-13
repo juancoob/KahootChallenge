@@ -113,13 +113,13 @@ class MainViewModelTest {
     fun `When the ViewModel can not retrieve a quiz due to an unknown error, the app notifies it`() =
         runTest {
             mainViewModel.state.test {
-                val expectedServerError = ErrorRetrieved.Unknown("Unknown error")
-                coEvery { requestQuizUseCase() } returns expectedServerError
+                val expectedError = ErrorRetrieved.Unknown("Unknown error")
+                coEvery { requestQuizUseCase() } returns expectedError
                 assertEquals(MainViewModel.UiState(loading = true), awaitItem())
                 assertEquals(
                     MainViewModel.UiState(
                         loading = false,
-                        errorRetrieved = expectedServerError,
+                        errorRetrieved = expectedError,
                         onRetry = mainViewModel::requestData
                     ), awaitItem()
                 )
